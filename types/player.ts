@@ -1,0 +1,32 @@
+export interface Player {
+  steamid: string
+  steamid64: string
+  name: string
+  pts_skill: number
+  rank_name: string
+  most_played_server: string
+  avatar_hash: string
+  total_points: number
+  count: number
+  pts_avg: number
+  pts_avg_t5: number
+  pts_avg_t6: number
+  pts_avg_t7: number
+  pts_avg_pro: number
+  pts_avg_tp: number
+  count_t5: number
+  count_t6: number
+  count_t7: number
+  count_p1000_tp: number
+  count_p1000_pro: number
+  count_p900: number
+  count_p800: number
+  count_t567_p900: number
+  count_t567_p800: number
+  count_t567_pro: number
+  count_pro: number
+  count_tp: number
+  updated_on: string
+  rank: number
+  percentage: string
+}
