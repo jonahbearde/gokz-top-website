@@ -2,11 +2,14 @@
 import type { Player } from "./types/player"
 import { useStorage } from "@vueuse/core"
 
+type Mode = "kz_timer" | "kz_simple" | "kz_vanilla"
+
 useHead({
   title: 'GOKZ TOP'
 })
 
-type Mode = "kz_timer" | "kz_simple" | "kz_vanilla"
+const apiBase = useRuntimeConfig().public.apiBase
+
 
 const mode = ref<Mode>("kz_timer")
 const offset = ref(0)
@@ -31,7 +34,7 @@ async function getRanking() {
   loading.value = true
   try {
     const response = await fetch(
-      `http://api.gokz.top:8000/leaderboard?mode=${mode.value}&offset=${offset.value}&limit=${limit.value}`
+      `${apiBase}/leaderboard?mode=${mode.value}&offset=${offset.value}&limit=${limit.value}`
     )
 
     players.value = await response.json()
@@ -51,7 +54,7 @@ async function getPlayerRank() {
   try {
     if (steamId.value) {
       const response = await fetch(
-        `http://api.gokz.top:8000/leaderboard/${steamId.value}?mode=${mode.value}`
+        `${apiBase}/leaderboard/${steamId.value}?mode=${mode.value}`
       )
 
       me.value = await response.json()
