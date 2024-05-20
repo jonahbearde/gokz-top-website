@@ -32,8 +32,10 @@ const search = debounce({ delay: 300 }, searchPlayer)
 
 getRanking()
 
-watch([mode, offset, limit], async () => {
-  await getRanking()
+watch([mode, offset], async ([oldMode, oldOffset], [newMode, newOffset]) => {
+  if (oldMode !== newMode || oldOffset !== newOffset) {
+    getRanking()
+  }
 })
 
 watch(searchQuery, (searchQuery) => {
@@ -95,6 +97,11 @@ async function searchPlayer(searchQuery: string) {
   }
 }
 
+function changeMode(newMode: Mode) {
+  offset.value = 0
+  mode.value = newMode
+}
+
 function goToSteam(steamid: string) {
   navigateTo(`https://steamcommunity.com/profiles/${steamid}`, {
     external: true,
@@ -123,21 +130,21 @@ function nextPage() {
         <div
           :class="mode === 'kz_timer' ? 'bg-gray-200' : ''"
           class="cursor-pointer hover:bg-gray-200 px-2 py-1"
-          @click="mode = 'kz_timer'"
+          @click="changeMode('kz_timer')"
         >
           KZT
         </div>
         <div
           :class="mode === 'kz_simple' ? 'bg-gray-200' : ''"
           class="cursor-pointer hover:bg-gray-200 px-2 py-1"
-          @click="mode = 'kz_simple'"
+          @click="changeMode('kz_simple')"
         >
           SKZ
         </div>
         <div
           :class="mode === 'kz_vanilla' ? 'bg-gray-200' : ''"
           class="cursor-pointer hover:bg-gray-200 px-2 py-1"
-          @click="mode = 'kz_vanilla'"
+          @click="changeMode('kz_vanilla')"
         >
           VNL
         </div>
