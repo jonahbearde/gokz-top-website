@@ -10,10 +10,9 @@ useHead({
 
 const apiBase = useRuntimeConfig().public.apiBase
 
-
 const mode = ref<Mode>("kz_timer")
 const offset = ref(0)
-const limit = ref(30)
+const limit = ref(50)
 
 const loading = ref(false)
 
@@ -93,7 +92,7 @@ function nextPage() {
 </script>
 
 <template>
-  <div class="p-4">
+  <div class="app p-4 bg-gray-100">
     <div class="flex items-center justify-around">
       <div class="flex items-center gap-4 text-lg font-medium">
         <div
@@ -216,7 +215,7 @@ function nextPage() {
               @click="goToSteam(player.steamid64)"
             >
               <img
-                :src="`https://avatars.cloudflare.steamstatic.com/${player.avatar_hash}_medium.jpg`"
+                :src="`https://avatars.cloudflare.steamstatic.com/${player.avatar_hash}.jpg`"
                 class="w-10 h-auto rounded-sm"
               />
               <NuxtLink
@@ -272,3 +271,9 @@ function nextPage() {
     </div>
   </div>
 </template>
+
+<style>
+.app {
+  font-family: "Chivo", sans-serif;
+}
+</style>
