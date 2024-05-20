@@ -228,7 +228,7 @@ function nextPage() {
               @click="goToSteam(player.steamid64)"
             >
               <img
-                :src="`https://avatars.cloudflare.steamstatic.com/${player.avatar_hash}.jpg`"
+                :src="`https://avatars.cloudflare.steamstatic.com/${player.avatar_hash}_medium.jpg`"
                 class="w-10 h-auto rounded-sm"
               />
               <p class="max-w-32 truncate text-ellipsis">
