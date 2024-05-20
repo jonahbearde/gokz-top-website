@@ -119,6 +119,10 @@ function nextPage() {
 <template>
   <div class="app p-4 bg-gray-100">
     <div class="flex flex-wrap gap-2 items-center lg:justify-around">
+      <div class="flex items-center gap-2">
+        <img src="/logo.png" class="w-12 h-auto" >
+        <p class="title text-2xl font-bold">GOKZ.TOP</p>
+      </div>
       <div class="flex items-center gap-4 text-lg font-medium">
         <div
           :class="mode === 'kz_timer' ? 'bg-gray-200' : ''"
@@ -196,7 +200,7 @@ function nextPage() {
     </div>
 
     <div class="table-container mt-4 h-[85vh] overflow-y-auto">
-      <Loading v-if="loading" />
+      <Loading v-if="loading" class="mx-auto" />
       <Table v-else :players="players" :me="me" />
     </div>
   </div>
@@ -205,6 +209,10 @@ function nextPage() {
 <style>
 .app {
   font-family: "Chivo", sans-serif;
+}
+
+.title {
+  font-family: "Signika", sans-serif;
 }
 
 .table-container::-webkit-scrollbar {

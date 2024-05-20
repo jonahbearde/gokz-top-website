@@ -7,7 +7,7 @@
   >
     <g
       fill="none"
-      stroke="#dbdbdb"
+      stroke="#5e5e5e"
       stroke-linecap="round"
       stroke-width="2"
     >
