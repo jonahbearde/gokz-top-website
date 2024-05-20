@@ -57,7 +57,7 @@ async function getRanking() {
 
 async function goToPlayer(steamId: string) {
   loading.value = true
-  searchQuery.value = ''
+  searchQuery.value = ""
   searchResults.value = []
   try {
     if (steamId) {
@@ -193,13 +193,13 @@ function nextPage() {
       </div>
     </div>
 
-    <div class="overflow-x-auto">
-      <table class="mt-4 w-full border border-gray-300 text-center">
+    <div class="table-container mt-4 h-[85vh] overflow-y-auto">
+      <table class="w-full text-center">
         <thead class="sticky top-0">
-          <tr>
+          <tr class="">
             <th rowspan="2" class="bg-gray-200">Rank</th>
 
-            <th rowspan="2" class="bg-gray-300">Player</th>
+            <th rowspan="2" class="bg-gray-300 w-60">Player</th>
 
             <th rowspan="2" class="bg-gray-200">Rating</th>
 
@@ -257,7 +257,7 @@ function nextPage() {
             v-for="player in players"
             :key="player.steamid"
             :class="player.steamid === me?.steamid ? 'bg-gray-300 me' : ''"
-            class="border-y hover:bg-gray-200"
+            class="border-b border-gray-400 hover:bg-gray-200"
           >
             <td>{{ player.rank }}</td>
 
@@ -270,9 +270,9 @@ function nextPage() {
                   :src="`https://avatars.cloudflare.steamstatic.com/${player.avatar_hash}_medium.jpg`"
                   class="w-10 h-auto rounded-sm"
                 />
-                <p class="max-w-32 truncate text-ellipsis">
+                <span class="truncate text-ellipsis">
                   {{ player.name }}
-                </p>
+                </span>
               </div>
             </td>
 
@@ -316,26 +316,28 @@ function nextPage() {
         </tbody>
       </table>
     </div>
-
-    <div class="mt-4 flex items-center justify-center gap-3">
-      <div
-        @click="firstPage"
-        class="cursor-pointer hover:bg-gray-200 px-2 py-1"
-      >
-        TOP50
-      </div>
-      <div @click="prevPage" class="cursor-pointer hover:bg-gray-200 px-2 py-1">
-        Prev
-      </div>
-      <div @click="nextPage" class="cursor-pointer hover:bg-gray-200 px-2 py-1">
-        Next
-      </div>
-    </div>
   </div>
 </template>
 
 <style>
 .app {
   font-family: "Chivo", sans-serif;
+}
+
+.table-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #d7d7d7;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #9e9e9e;
+  border-radius: 5px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #9f9f9f;
 }
 </style>
