@@ -88,8 +88,8 @@ function nextPage() {
 </script>
 
 <template>
-  <div class="app  p-4 bg-gray-100">
-    <div class="flex items-center justify-around">
+  <div class="app p-4 bg-gray-100">
+    <div class="flex flex-wrap gap-2 items-center lg:justify-around">
       <div class="flex items-center gap-4 text-lg font-medium">
         <div
           :class="mode === 'kz_timer' ? 'bg-gray-200' : ''"
