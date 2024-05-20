@@ -5,7 +5,7 @@ import { useStorage } from "@vueuse/core"
 type Mode = "kz_timer" | "kz_simple" | "kz_vanilla"
 
 useHead({
-  title: 'GOKZ TOP'
+  title: "GOKZ TOP",
 })
 
 const apiBase = useRuntimeConfig().public.apiBase
@@ -19,7 +19,7 @@ const loading = ref(false)
 const players = ref<Player[]>([])
 const me = ref<Player>()
 
-const end =ref()
+const end = ref()
 
 const steamId = useStorage("steamid", () => "")
 
@@ -92,7 +92,7 @@ function nextPage() {
 </script>
 
 <template>
-  <div class="app p-4 bg-gray-100">
+  <div class="app overflow-x-auto p-4 bg-gray-100">
     <div class="flex items-center justify-around">
       <div class="flex items-center gap-4 text-lg font-medium">
         <div
@@ -103,14 +103,14 @@ function nextPage() {
           KZT
         </div>
         <div
-        :class="mode === 'kz_simple' ? 'bg-gray-200' : ''"
+          :class="mode === 'kz_simple' ? 'bg-gray-200' : ''"
           class="cursor-pointer hover:bg-gray-200 px-2 py-1"
           @click="mode = 'kz_simple'"
         >
           SKZ
         </div>
         <div
-        :class="mode === 'kz_vanilla' ? 'bg-gray-200' : ''"
+          :class="mode === 'kz_vanilla' ? 'bg-gray-200' : ''"
           class="cursor-pointer hover:bg-gray-200 px-2 py-1"
           @click="mode = 'kz_vanilla'"
         >
@@ -126,7 +126,7 @@ function nextPage() {
           class="border border-gray-400 p-1"
         />
         <div
-          class="cursor-pointer hover:bg-gray-200 px-2 py-1"
+          class="cursor-pointer hover:bg-gray-200 px-2 py-1 whitespace-nowrap"
           @click="getPlayerRank"
         >
           Find Your Place
@@ -161,17 +161,26 @@ function nextPage() {
           <th rowspan="2" class="bg-gray-200">Rank</th>
           <th rowspan="2" class="bg-gray-300">Player</th>
           <th rowspan="2" class="bg-gray-200">Rating</th>
-          <th rowspan="2" class="bg-gray-300">Level</th>
-          <th rowspan="2" class="bg-gray-200">Points</th>
-          <th rowspan="2" class="bg-gray-300">Maps Finished</th>
+          <th rowspan="2" class="bg-gray-300">Top%</th>
+          <th rowspan="2" class="bg-gray-200">Level</th>
+          <th rowspan="2" class="bg-gray-300">Points</th>
+          <th rowspan="2" class="bg-gray-200 whitespace-nowrap">
+            Maps Finished
+          </th>
 
           <th colspan="2" class="text-center bg-gray-200">WRs</th>
 
-          <th colspan="5" class="bg-gray-300">Records</th>
+          <th colspan="2" class="bg-gray-300">Records</th>
 
-          <th colspan="3" class="bg-gray-200">Hard Maps Finished</th>
+          <th colspan="3" class="bg-gray-200 whitespace-nowrap">
+            Hard Maps Finished
+          </th>
 
-          <th colspan="6" class="bg-gray-300">Points Avg</th>
+          <th colspan="3" class="bg-gray-300">Avg Points</th>
+
+          <th rowspan="2" class="bg-gray-200 whitespace-nowrap">
+            Most Played Server
+          </th>
         </tr>
         <tr>
           <th class="bg-gray-200">PRO</th>
@@ -179,9 +188,9 @@ function nextPage() {
 
           <th class="bg-gray-300">900+</th>
           <th class="bg-gray-300">800+</th>
-          <th class="bg-gray-300">900+(T5-T7)</th>
-          <th class="bg-gray-300">800+(T5-T7)</th>
-          <th class="bg-gray-300">PRO(T5-T7)</th>
+          <!-- <th class="bg-gray-300 whitespace-nowrap">900+(T5-T7)</th>
+          <th class="bg-gray-300 whitespace-nowrap">800+(T5-T7)</th>
+          <th class="bg-gray-300 whitespace-nowrap">PRO(T5-T7)</th> -->
 
           <th class="bg-gray-200">T5</th>
           <th class="bg-gray-200">T6</th>
@@ -190,9 +199,9 @@ function nextPage() {
           <th class="bg-gray-300">TP+PRO</th>
           <th class="bg-gray-300">PRO</th>
           <th class="bg-gray-300">TP</th>
-          <th class="bg-gray-300">T5</th>
+          <!-- <th class="bg-gray-300">T5</th>
           <th class="bg-gray-300">T6</th>
-          <th class="bg-gray-300">T7</th>
+          <th class="bg-gray-300">T7</th> -->
         </tr>
       </thead>
 
@@ -218,17 +227,19 @@ function nextPage() {
                 :src="`https://avatars.cloudflare.steamstatic.com/${player.avatar_hash}.jpg`"
                 class="w-10 h-auto rounded-sm"
               />
-              <NuxtLink
-                :to="`https://steamcommunity.com/profiles/${player.steamid64}`"
-                target="_blank"
-                class="max-w-32 truncate text-ellipsis"
-              >
+              <p class="max-w-32 truncate text-ellipsis">
                 {{ player.name }}
-              </NuxtLink>
+              </p>
             </div>
           </td>
           <td>{{ player.pts_skill }}</td>
-          <td>{{ player.rank_name }}</td>
+          <td>{{ player.percentage }}</td>
+          <td>
+            <img
+              :src="`/ranks/${player.rank_name.toLowerCase()}.png`"
+              class="w-20 h-auto inline"
+            />
+          </td>
           <td>{{ player.total_points.toLocaleString() }}</td>
           <td>{{ player.count }}</td>
 
@@ -237,9 +248,9 @@ function nextPage() {
 
           <td>{{ player.count_p900 }}</td>
           <td>{{ player.count_p800 }}</td>
-          <td>{{ player.count_t567_p800 }}</td>
+          <!-- <td>{{ player.count_t567_p800 }}</td>
           <td>{{ player.count_t567_p900 }}</td>
-          <td>{{ player.count_t567_pro }}</td>
+          <td>{{ player.count_t567_pro }}</td> -->
 
           <td>{{ player.count_t5 }}</td>
           <td>{{ player.count_t6 }}</td>
@@ -248,9 +259,13 @@ function nextPage() {
           <td>{{ player.pts_avg }}</td>
           <td>{{ player.pts_avg_pro }}</td>
           <td>{{ player.pts_avg_tp }}</td>
-          <td>{{ player.pts_avg_t5 }}</td>
+
+          <td class="max-w-32 truncate text-ellipsis whitespace-nowrap">
+            {{ player.most_played_server }}
+          </td>
+          <!-- <td>{{ player.pts_avg_t5 }}</td>
           <td>{{ player.pts_avg_t6 }}</td>
-          <td>{{ player.pts_avg_t7 }}</td>
+          <td>{{ player.pts_avg_t7 }}</td> -->
         </tr>
       </tbody>
     </table>
