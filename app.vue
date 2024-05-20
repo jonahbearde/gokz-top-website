@@ -168,37 +168,37 @@ function nextPage() {
             Maps Finished
           </th>
 
-          <th colspan="2" class="text-center bg-gray-200">WRs</th>
+          <th colspan="2" class="text-center bg-gray-300">WRs</th>
 
-          <th colspan="2" class="bg-gray-300">Records</th>
+          <th colspan="2" class="bg-gray-200">Records</th>
 
-          <th colspan="3" class="bg-gray-200 whitespace-nowrap">
+          <th colspan="3" class="bg-gray-300 whitespace-nowrap">
             Hard Maps Finished
           </th>
 
-          <th colspan="3" class="bg-gray-300">Avg Points</th>
+          <th colspan="3" class="bg-gray-200">Avg Points</th>
 
-          <th rowspan="2" class="bg-gray-200 whitespace-nowrap">
+          <th rowspan="2" class="bg-gray-300 whitespace-nowrap">
             Most Played Server
           </th>
         </tr>
         <tr>
-          <th class="bg-gray-200">PRO</th>
-          <th class="bg-gray-200">TP</th>
+          <th class="bg-gray-300">PRO</th>
+          <th class="bg-gray-300">TP</th>
 
-          <th class="bg-gray-300">900+</th>
-          <th class="bg-gray-300">800+</th>
+          <th class="bg-gray-200">900+</th>
+          <th class="bg-gray-200">800+</th>
           <!-- <th class="bg-gray-300 whitespace-nowrap">900+(T5-T7)</th>
           <th class="bg-gray-300 whitespace-nowrap">800+(T5-T7)</th>
           <th class="bg-gray-300 whitespace-nowrap">PRO(T5-T7)</th> -->
 
-          <th class="bg-gray-200">T5</th>
-          <th class="bg-gray-200">T6</th>
-          <th class="bg-gray-200">T7</th>
+          <th class="bg-gray-300">T5</th>
+          <th class="bg-gray-300">T6</th>
+          <th class="bg-gray-300">T7</th>
 
-          <th class="bg-gray-300">TP+PRO</th>
-          <th class="bg-gray-300">PRO</th>
-          <th class="bg-gray-300">TP</th>
+          <th class="bg-gray-200">TP+PRO</th>
+          <th class="bg-gray-200">PRO</th>
+          <th class="bg-gray-200">TP</th>
           <!-- <th class="bg-gray-300">T5</th>
           <th class="bg-gray-300">T6</th>
           <th class="bg-gray-300">T7</th> -->
