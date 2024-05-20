@@ -181,6 +181,10 @@ function nextPage() {
           <th rowspan="2" class="bg-gray-300 whitespace-nowrap">
             Most Played Server
           </th>
+
+          <th rowspan="2" class="bg-gray-200 whitespace-nowrap">
+            Updated On
+          </th>
         </tr>
         <tr>
           <th class="bg-gray-300">PRO</th>
@@ -262,6 +266,10 @@ function nextPage() {
 
           <td class="max-w-32 truncate text-ellipsis whitespace-nowrap">
             {{ player.most_played_server }}
+          </td>
+
+          <td class="max-w-32 truncate text-ellipsis whitespace-nowrap">
+            {{ toLocal(player.updated_on) }}
           </td>
           <!-- <td>{{ player.pts_avg_t5 }}</td>
           <td>{{ player.pts_avg_t6 }}</td>
