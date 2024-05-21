@@ -24,6 +24,8 @@ const loading = ref(false)
 const players = ref<Player[]>([])
 const me = ref<Player | null>(null)
 
+const formula = ref()
+
 const searchQuery = ref("")
 const searchResults = ref<SearchResult[]>([])
 const search = debounce({ delay: 300 }, searchPlayer)
@@ -201,6 +203,14 @@ function nextPage() {
     <div class="table-container mt-4 h-[85vh] overflow-y-auto">
       <Loading v-if="loading" class="mx-auto" />
       <Table v-else :players="players" :me="me" :mode="mode" />
+    </div>
+
+    <div class="mt-2 overflow-x-auto">
+      <p class="mb-2">
+        Thanks to <a href="https://steamcommunity.com/id/zuoE" target="_blank" class="text-blue-400 underline">1</a>, the
+        ratings are calculated using the following algorithm:
+      </p>
+      <Formula :formula="formula" />
     </div>
   </div>
 </template>

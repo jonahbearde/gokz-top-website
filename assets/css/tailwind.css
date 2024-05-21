@@ -1,16 +1,34 @@
 @tailwind base;
 @tailwind components;
 
-.has-tooltip{
+/* .has-tooltip{
   @apply relative
-}
+} */
 
 .tooltip {
   @apply invisible absolute;
 }
 
-.has-tooltip:hover .tooltip {
+.has-tooltip:hover ~ .tooltip {
   @apply visible z-10;
 }
 
 @tailwind utilities;
+
+
+html::-webkit-scrollbar {
+  width: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #d7d7d7;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #9e9e9e;
+  border-radius: 5px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: #9f9f9f;
+}
