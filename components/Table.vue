@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { Player } from "~/types/player"
+import type { Mode } from "~/types/common"
 
 const props = defineProps<{
   players: Player[]
   me: Player | null
+  mode: Mode
 }>()
 
 const rowRefs = ref([])
@@ -20,17 +22,17 @@ onMounted(() => {
   }
 })
 
-function goToSteam(steamid: string) {
-  navigateTo(`https://steamcommunity.com/profiles/${steamid}`, {
-    external: true,
-  })
+function getModeAbbr(mode: Mode) {
+  if (mode === "kz_timer") return "kzt"
+  if (mode === "kz_simple") return "skz"
+  if (mode === "kz_vanilla") return "vnl"
 }
 </script>
 
 <template>
   <table class="w-full text-center">
-    <thead class="sticky top-0">
-      <tr class="">
+    <thead class="sticky top-0 z-20">
+      <tr>
         <th rowspan="2" class="bg-gray-200">Rank</th>
 
         <th rowspan="2" class="bg-gray-300 w-60">Player</th>
@@ -87,18 +89,41 @@ function goToSteam(steamid: string) {
       >
         <td>{{ player.rank }}</td>
 
-        <td class="py-1 cursor-pointer">
-          <div
-            class="flex items-center gap-2"
-            @click="goToSteam(player.steamid64)"
-          >
+        <td class="py-1">
+          <div class="flex items-center gap-2">
             <img
               :src="`https://avatars.cloudflare.steamstatic.com/${player.avatar_hash}_medium.jpg`"
-              class="w-10 h-auto rounded-sm"
+              class="has-tooltip w-10 h-auto rounded-sm"
             />
-            <span class="truncate text-ellipsis">
-              {{ player.name }}
-            </span>
+            <div class="has-tooltip">
+              <span class="truncate text-ellipsis">
+                {{ player.name }}
+              </span>
+              <div
+                class="tooltip p-1 flex flex-col text-sm text-gray-700 bg-gray-300 border border-gray-400"
+              >
+                <NuxtLink
+                  target="_blank"
+                  :to="`https://steamcommunity.com/profiles/${player.steamid64}`"
+                  class="hover:bg-gray-200 whitespace-nowrap"
+                  >Steam Profile</NuxtLink
+                >
+                <NuxtLink
+                  target="_blank"
+                  :to="`https://kzgo.eu/players/${player.steamid}?${getModeAbbr(
+                    mode
+                  )}`"
+                  class="hover:bg-gray-200"
+                  >KZGO Profile</NuxtLink
+                >
+                <NuxtLink
+                  target="_blank"
+                  :to="`https://dash.gokz.top/player/${player.steamid}?gmt=p8:00`"
+                  class="hover:bg-gray-200"
+                  >KZ Statistics</NuxtLink
+                >
+              </div>
+            </div>
           </div>
         </td>
 

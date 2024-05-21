@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import type { Player } from "./types/player"
+import type { Mode } from "./types/common"
 import { debounce } from "radash"
 
 useHead({
   title: "GOKZ TOP",
 })
-
-type Mode = "kz_timer" | "kz_simple" | "kz_vanilla"
 
 interface SearchResult {
   name: string
@@ -120,7 +119,7 @@ function nextPage() {
   <div class="app p-4 bg-gray-100">
     <div class="flex flex-wrap gap-2 items-center lg:justify-around">
       <div class="flex items-center gap-2">
-        <img src="/logo.png" class="w-12 h-auto" >
+        <img src="/logo.png" class="w-12 h-auto" />
         <p class="title text-2xl font-bold">GOKZ.TOP</p>
       </div>
       <div class="flex items-center gap-4 text-lg font-medium">
@@ -159,7 +158,7 @@ function nextPage() {
 
           <div
             v-if="searchResults.length > 0"
-            class="absolute top-9 left-0 p-1 z-20 bg-gray-200 border border-gray-400"
+            class="absolute top-9 left-0 p-1 z-30 bg-gray-200 border border-gray-400"
           >
             <div
               v-for="result in searchResults"
@@ -201,7 +200,7 @@ function nextPage() {
 
     <div class="table-container mt-4 h-[85vh] overflow-y-auto">
       <Loading v-if="loading" class="mx-auto" />
-      <Table v-else :players="players" :me="me" />
+      <Table v-else :players="players" :me="me" :mode="mode" />
     </div>
   </div>
 </template>
