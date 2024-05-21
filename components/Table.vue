@@ -127,7 +127,7 @@ function getModeAbbr(mode: Mode) {
           </div>
         </td>
 
-        <td>{{ player.pts_skill }}</td>
+        <td>{{ player.pts_skill.toFixed(2) }}</td>
 
         <td>{{ player.percentage }}</td>
 
