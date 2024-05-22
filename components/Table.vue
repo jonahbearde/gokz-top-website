@@ -8,6 +8,8 @@ const props = defineProps<{
   mode: Mode
 }>()
 
+const emits = defineEmits(['openModal'])
+
 const rowRefs = ref([])
 
 onMounted(() => {
@@ -37,7 +39,12 @@ function getModeAbbr(mode: Mode) {
 
         <th rowspan="2" class="bg-gray-300 w-60">Player</th>
 
-        <th rowspan="2" class="bg-gray-200">Rating</th>
+        <th rowspan="2" class="bg-gray-200">
+          <div class="inline-flex items-center gap-1">
+            <p>Rating</p>
+            <IconQuestion class="cursor-pointer" @click="emits('openModal')" />
+          </div>
+        </th>
 
         <th rowspan="2" class="bg-gray-300">Top%</th>
 

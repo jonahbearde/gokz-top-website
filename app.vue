@@ -24,6 +24,8 @@ const loading = ref(false)
 const players = ref<Player[]>([])
 const me = ref<Player | null>(null)
 
+const dialog = ref()
+
 const formula = ref()
 
 const searchQuery = ref("")
@@ -97,6 +99,14 @@ async function searchPlayer(searchQuery: string) {
   }
 }
 
+function onOpenModal(){
+  dialog.value.showModal()
+}
+
+function closeModal() {
+  dialog.value.close()
+}
+
 function changeMode(newMode: Mode) {
   offset.value = 0
   mode.value = newMode
@@ -124,6 +134,7 @@ function nextPage() {
         <img src="/logo.png" class="w-12 h-auto" />
         <p class="title text-2xl font-bold">GOKZ.TOP</p>
       </div>
+
       <div class="flex items-center gap-4 text-lg font-medium">
         <div
           :class="mode === 'kz_timer' ? 'bg-gray-200' : ''"
@@ -202,16 +213,17 @@ function nextPage() {
 
     <div class="table-container mt-4 h-[85vh] overflow-y-auto">
       <Loading v-if="loading" class="mx-auto" />
-      <Table v-else :players="players" :me="me" :mode="mode" />
+      <Table v-else :players="players" :me="me" :mode="mode" @open-modal="onOpenModal" />
     </div>
 
-    <div class="mt-2 overflow-x-auto">
+    <dialog ref="dialog" class="p-2">
+      <div @click="closeModal" class="w-max px-1 bg-gray-200 hover:bg-gray-300 cursor-pointer">Close</div>
       <p class="mb-2">
         Thanks to <a href="https://steamcommunity.com/id/zuoE" target="_blank" class="text-blue-400 underline">1</a>, the
         ratings are calculated using the following algorithm:
       </p>
-      <Formula :formula="formula" />
-    </div>
+      <Formula />
+    </dialog>
   </div>
 </template>
 
