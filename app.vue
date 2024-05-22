@@ -26,8 +26,6 @@ const me = ref<Player | null>(null)
 
 const dialog = ref()
 
-const formula = ref()
-
 const searchQuery = ref("")
 const searchResults = ref<SearchResult[]>([])
 const search = debounce({ delay: 300 }, searchPlayer)
