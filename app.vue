@@ -97,7 +97,7 @@ async function searchPlayer(searchQuery: string) {
   }
 }
 
-function onOpenModal(){
+function onOpenModal() {
   dialog.value.showModal()
 }
 
@@ -109,30 +109,18 @@ function changeMode(newMode: Mode) {
   offset.value = 0
   mode.value = newMode
 }
-
-function firstPage() {
-  offset.value = 0
-}
-
-function prevPage() {
-  if (offset.value > 0) {
-    offset.value -= limit.value
-  }
-}
-
-function nextPage() {
-  offset.value += limit.value
-}
 </script>
 
 <template>
-  <div class="app p-4 bg-gray-100">
-    <div class="flex flex-wrap gap-2 items-center lg:justify-around">
+  <div class="app p-2 bg-gray-100">
+    <div class="flex flex-col lg:flex-row flex-wrap gap-2 lg:gap-16 lg:items-center ">
+      <!-- logo -->
       <div class="flex items-center gap-2">
         <img src="/logo.png" class="w-12 h-auto" />
         <p class="title text-2xl font-bold">GOKZ.TOP</p>
       </div>
 
+      <!-- modes -->
       <div class="flex items-center gap-4 text-lg font-medium">
         <div
           :class="mode === 'kz_timer' ? 'bg-gray-200' : ''"
@@ -157,6 +145,7 @@ function nextPage() {
         </div>
       </div>
 
+      <!-- search -->
       <div class="flex items-center gap-2">
         <p class="text-lg">Search</p>
         <div class="relative">
@@ -187,41 +176,43 @@ function nextPage() {
         </div>
       </div>
 
-      <div class="flex items-center gap-3">
-        <div
-          @click="firstPage"
-          class="cursor-pointer hover:bg-gray-200 px-2 py-1"
-        >
-          TOP50
-        </div>
-        <div
-          @click="prevPage"
-          class="cursor-pointer hover:bg-gray-200 px-2 py-1"
-        >
-          Prev
-        </div>
-        <div
-          @click="nextPage"
-          class="cursor-pointer hover:bg-gray-200 px-2 py-1"
-        >
-          Next
-        </div>
-      </div>
+      <!-- paginator -->
+      <Paginator v-model:offset="offset" v-model:limit="limit" />
     </div>
 
-    <div class="table-container mt-4 h-[85vh] overflow-y-auto">
+    <div class="overflow-x-auto lg:overflow-visible">
       <Loading v-if="loading" class="mx-auto" />
-      <Table v-else :players="players" :me="me" :mode="mode" @open-modal="onOpenModal" />
+      <Table
+        v-else
+        :players="players"
+        :me="me"
+        :mode="mode"
+        @open-modal="onOpenModal"
+        class="mt-2"
+      />
     </div>
+
+    <Paginator v-model:offset="offset" v-model:limit="limit" class="mt-2" />
 
     <dialog ref="dialog" class="p-2">
-      <div @click="closeModal" class="w-max px-1 bg-gray-200 hover:bg-gray-300 cursor-pointer">Close</div>
+      <div
+        @click="closeModal"
+        class="w-max px-1 bg-gray-200 hover:bg-gray-300 cursor-pointer"
+      >
+        Close
+      </div>
       <p class="mb-2">
-        Thanks to <a href="https://steamcommunity.com/id/zuoE" target="_blank" class="text-blue-400 underline">1</a>, the
-        ratings are calculated using the following algorithm:
+        Thanks to
+        <a
+          href="https://steamcommunity.com/id/zuoE"
+          target="_blank"
+          class="text-blue-400 underline"
+          >1</a
+        >, the ratings are calculated using the following algorithm:
       </p>
       <Formula />
     </dialog>
+
   </div>
 </template>
 
@@ -234,20 +225,5 @@ function nextPage() {
   font-family: "Signika", sans-serif;
 }
 
-.table-container::-webkit-scrollbar {
-  width: 10px;
-}
 
-.table-container::-webkit-scrollbar-track {
-  background: #d7d7d7;
-}
-
-.table-container::-webkit-scrollbar-thumb {
-  background: #9e9e9e;
-  border-radius: 5px;
-}
-
-.table-container::-webkit-scrollbar-thumb:hover {
-  background: #9f9f9f;
-}
 </style>
