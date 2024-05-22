@@ -8,7 +8,7 @@ const props = defineProps<{
   mode: Mode
 }>()
 
-const emits = defineEmits(['openModal'])
+const emits = defineEmits(["openModal"])
 
 const rowRefs = ref([])
 
@@ -18,9 +18,10 @@ onMounted(() => {
       (player) => player.steamid === props.me?.steamid
     )
 
-    const rowOfMe = rowRefs.value[meIndex] as HTMLElement
-
-    rowOfMe.scrollIntoView({ behavior: "smooth", block: "center" })
+    if (meIndex > 0) {
+      const rowOfMe = rowRefs.value[meIndex] as HTMLElement
+      rowOfMe.scrollIntoView({ behavior: "smooth", block: "center" })
+    }
   }
 })
 
@@ -100,7 +101,9 @@ function getModeAbbr(mode: Mode) {
           <div class="flex items-center gap-2">
             <img
               :src="`https://avatars.cloudflare.steamstatic.com/${player.avatar_hash}_medium.jpg`"
+              onerror="this.onerror = null; this.src= '/placeholder.jpg'"
               class="has-tooltip w-10 h-auto rounded-sm"
+              loading="lazy"
             />
             <div class="has-tooltip">
               <span class="truncate text-ellipsis">

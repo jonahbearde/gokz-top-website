@@ -20,7 +20,7 @@ function nextPage() {
 <template>
   <div class="flex items-center gap-3">
     <div @click="firstPage" class="cursor-pointer hover:bg-gray-200 px-2 py-1">
-      TOP50
+      TOP30
     </div>
     <div @click="prevPage" class="cursor-pointer hover:bg-gray-200 px-2 py-1">
       Prev

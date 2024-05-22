@@ -17,7 +17,7 @@ const apiBase = useRuntimeConfig().public.apiBase
 
 const mode = ref<Mode>("kz_timer")
 const offset = ref(0)
-const limit = ref(50)
+const limit = ref(30)
 
 const loading = ref(false)
 
@@ -113,10 +113,16 @@ function changeMode(newMode: Mode) {
 
 <template>
   <div class="app p-2 bg-gray-100">
-    <div class="flex flex-col lg:flex-row flex-wrap gap-2 lg:gap-16 lg:items-center ">
+    <div
+      class="flex flex-col lg:flex-row flex-wrap gap-2 lg:gap-16 lg:items-center"
+    >
       <!-- logo -->
       <div class="flex items-center gap-2">
-        <img src="/logo.png" class="w-12 h-auto" />
+        <img
+          src="/logo.png"
+          class="w-12 h-auto"
+          
+        />
         <p class="title text-2xl font-bold">GOKZ.TOP</p>
       </div>
 
@@ -212,7 +218,6 @@ function changeMode(newMode: Mode) {
       </p>
       <Formula />
     </dialog>
-
   </div>
 </template>
 
@@ -224,6 +229,4 @@ function changeMode(newMode: Mode) {
 .title {
   font-family: "Signika", sans-serif;
 }
-
-
 </style>

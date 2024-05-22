@@ -5,12 +5,7 @@
     height="2rem"
     viewBox="0 0 24 24"
   >
-    <g
-      fill="none"
-      stroke="#5e5e5e"
-      stroke-linecap="round"
-      stroke-width="2"
-    >
+    <g fill="none" stroke="#5e5e5e" stroke-linecap="round" stroke-width="2">
       <path
         stroke-dasharray="60"
         stroke-dashoffset="60"
