@@ -99,11 +99,11 @@ function getModeAbbr(mode: Mode) {
 
         <td class="py-1">
           <div class="flex items-center gap-2">
-            <img
+            <VImage
               :src="`https://avatars.cloudflare.steamstatic.com/${player.avatar_hash}_medium.jpg`"
-              onerror="this.onerror = null; this.src= '/placeholder.jpg'"
-              class="has-tooltip w-10 h-auto rounded-sm"
-              loading="lazy"
+              placeholder="/placeholder.jpeg"
+              :width="40"
+              :height="40"
             />
             <div class="has-tooltip">
               <span class="truncate text-ellipsis">

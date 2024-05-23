@@ -118,11 +118,7 @@ function changeMode(newMode: Mode) {
     >
       <!-- logo -->
       <div class="flex items-center gap-2">
-        <img
-          src="/logo.png"
-          class="w-12 h-auto"
-          
-        />
+        <img src="/logo.png" class="w-12 h-auto" />
         <p class="title text-2xl font-bold">GOKZ.TOP</p>
       </div>
 
@@ -172,9 +168,11 @@ function changeMode(newMode: Mode) {
               class="mt-1 flex items-center hover:bg-gray-300 cursor-pointer"
               @click="goToPlayer(result.steamid)"
             >
-              <img
+              <VImage
                 :src="`https://avatars.cloudflare.steamstatic.com/${result.avatar_hash}_medium.jpg`"
-                class="w-8 h-auto rounded-sm"
+                placeholder="/placeholder.jpeg"
+                :width="40"
+                :height="40"
               />
               <p class="px-2 truncate text-ellipsis">{{ result.name }}</p>
             </div>
