@@ -38,7 +38,7 @@ function getModeAbbr(mode: Mode) {
       <tr>
         <th rowspan="2" class="bg-gray-200">Rank</th>
 
-        <th rowspan="2" class="bg-gray-300 w-60">Player</th>
+        <th rowspan="2" class="bg-gray-300">Player</th>
 
         <th rowspan="2" class="bg-gray-200">
           <div class="inline-flex items-center gap-1">
@@ -106,7 +106,7 @@ function getModeAbbr(mode: Mode) {
               :height="40"
             />
             <div class="has-tooltip">
-              <span class="truncate text-ellipsis">
+              <span class="whitespace-nowrap">
                 {{ player.name }}
               </span>
               <div
