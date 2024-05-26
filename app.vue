@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { Player } from "./types/player"
-import type { Mode, SearchItem } from "./types/common"
-import { debounce } from "radash"
-import { useStorage } from "@vueuse/core"
+import type { Mode } from "./types/common"
 
 useHead({
   title: "GOKZ TOP",
@@ -16,18 +14,10 @@ const limit = ref(30)
 
 const loading = ref(false)
 
-const showHistory = ref(false)
-
 const players = ref<Player[]>([])
 const me = ref<Player | null>(null)
 
 const dialog = ref()
-
-const searchQuery = ref("")
-const searchResults = ref<SearchItem[]>([])
-const search = debounce({ delay: 300 }, searchPlayer)
-
-const searchHistory = useStorage<SearchItem[]>("searchHistory", () => [])
 
 getRanking()
 
@@ -35,10 +25,6 @@ watch([mode, offset], async ([oldMode, oldOffset], [newMode, newOffset]) => {
   if (oldMode !== newMode || oldOffset !== newOffset) {
     getRanking()
   }
-})
-
-watch(searchQuery, (searchQuery) => {
-  search(searchQuery)
 })
 
 async function getRanking() {
@@ -53,56 +39,6 @@ async function getRanking() {
     console.log(error)
   } finally {
     loading.value = false
-  }
-}
-
-async function onClickPlayer(steamId: string) {
-  loading.value = true
-  searchQuery.value = ""
-  searchResults.value = []
-  try {
-    if (steamId) {
-      const response = await fetch(
-        `${apiBase}/leaderboard/${steamId}?mode=${mode.value}`
-      )
-
-      me.value = (await response.json()) as Player
-
-      if (searchHistory.value.length > 10) {
-        searchHistory.value.pop()
-      }
-
-      searchHistory.value.push({
-        name: me.value.name,
-        steamid: me.value.steamid,
-        avatar_hash: me.value.avatar_hash,
-      })
-
-      if (me.value) {
-        offset.value =
-          Math.floor((me.value.rank - 1) / limit.value) * limit.value
-      }
-    }
-  } catch (error) {
-    console.log(error)
-  } finally {
-    loading.value = false
-  }
-}
-
-async function searchPlayer(searchQuery: string) {
-  try {
-    if (searchQuery === "") {
-      searchResults.value = []
-    } else {
-      const response = await fetch(
-        `${apiBase}/leaderboard/search/${searchQuery}`
-      )
-      searchResults.value = await response.json()
-    }
-  } catch (error) {
-    searchResults.value = []
-    console.log(error)
   }
 }
 
@@ -156,33 +92,13 @@ function changeMode(newMode: Mode) {
         </div>
       </div>
 
-      <!-- search -->
-      <div class="flex items-center gap-2">
-        <p class="text-lg">Search</p>
-        <div class="relative">
-          <input
-            type="text"
-            v-model="searchQuery"
-            placeholder="Name, Steam ID"
-            @focus="showHistory = true"
-            @input="showHistory = false"
-            @blur="showHistory = false"
-            class="border border-gray-400 p-1"
-          />
-
-          <Suggestions
-            v-if="searchResults.length > 0"
-            :items="searchResults"
-            @click-player="onClickPlayer"
-          />
-
-          <Suggestions
-            v-if="showHistory && searchHistory.length > 0"
-            :items="searchHistory"
-            @click-player="onClickPlayer"
-          />
-        </div>
-      </div>
+      <Search
+        :mode="mode"
+        :limit="limit"
+        v-model:loading="loading"
+        v-model:me="me"
+        v-model:offset="offset"
+      />
 
       <!-- paginator -->
       <Paginator v-model:offset="offset" v-model:limit="limit" />
