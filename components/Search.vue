@@ -103,7 +103,7 @@ async function searchPlayer(searchQuery: string) {
       searchResults.value = []
     } else {
       const response = await fetch(
-        `${apiBase}/leaderboard/search/${searchQuery}`
+        `${apiBase}/leaderboard/search/${searchQuery}?mode=${props.mode}`
       )
       searchResults.value = await response.json()
     }
