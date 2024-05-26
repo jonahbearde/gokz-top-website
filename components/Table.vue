@@ -97,15 +97,15 @@ function getModeAbbr(mode: Mode) {
       >
         <td>{{ player.rank }}</td>
 
-        <td class="py-1">
+        <td class="py-1 w-56">
           <div class="flex items-center gap-2">
             <VImage
               class="w-10 h-10"
               :src="`https://avatars.cloudflare.steamstatic.com/${player.avatar_hash}_medium.jpg`"
               placeholder="/placeholder.jpeg"
             />
-            <div class="has-tooltip max-w-40">
-              <p class="truncate">
+            <div class="has-tooltip">
+              <p class="whitespace-nowrap">
                 {{ player.name }}
               </p>
               <div
