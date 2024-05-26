@@ -166,6 +166,7 @@ function changeMode(newMode: Mode) {
             placeholder="Name, Steam ID"
             @focus="showHistory = true"
             @input="showHistory = false"
+            @blur="showHistory = false"
             class="border border-gray-400 p-1"
           />
 
