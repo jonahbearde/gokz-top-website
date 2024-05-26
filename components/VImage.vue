@@ -13,7 +13,7 @@ onMounted(() => {
 
   const image = new Image()
   // avoid layout shift when image is appended to the DOM but not loadeded
-  image.style.position = "absolute"
+  image.style.visibility = "hidden"
   image.style.borderRadius = "2px"
   image.loading = "lazy"
 
@@ -24,7 +24,7 @@ onMounted(() => {
     imageContainer.value.appendChild(image)
 
     image.onload = () => {
-      image.style.position = "static"
+      image.style.visibility = "visible"
       imageContainer.value.removeChild(placeholderImg)
     }
 
