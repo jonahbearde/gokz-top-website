@@ -169,10 +169,9 @@ function changeMode(newMode: Mode) {
               @click="goToPlayer(result.steamid)"
             >
               <VImage
+                class="w-10 h-10"
                 :src="`https://avatars.cloudflare.steamstatic.com/${result.avatar_hash}_medium.jpg`"
                 placeholder="/placeholder.jpeg"
-                :width="40"
-                :height="40"
               />
               <p class="px-2 truncate text-ellipsis">{{ result.name }}</p>
             </div>

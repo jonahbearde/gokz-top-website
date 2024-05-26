@@ -47,7 +47,7 @@ function getModeAbbr(mode: Mode) {
           </div>
         </th>
 
-        <th rowspan="2" class="bg-gray-300">Top%</th>
+        <th rowspan="2" class="bg-gray-300 sm:px-2 lg:px-0">Top%</th>
 
         <th rowspan="2" class="bg-gray-200">Level</th>
 
@@ -100,15 +100,14 @@ function getModeAbbr(mode: Mode) {
         <td class="py-1">
           <div class="flex items-center gap-2">
             <VImage
+              class="w-10 h-10"
               :src="`https://avatars.cloudflare.steamstatic.com/${player.avatar_hash}_medium.jpg`"
               placeholder="/placeholder.jpeg"
-              :width="40"
-              :height="40"
             />
-            <div class="has-tooltip">
-              <span class="whitespace-nowrap">
+            <div class="has-tooltip max-w-40">
+              <p class="truncate">
                 {{ player.name }}
-              </span>
+              </p>
               <div
                 class="tooltip p-1 flex flex-col text-sm text-gray-700 bg-gray-300 border border-gray-400"
               >
