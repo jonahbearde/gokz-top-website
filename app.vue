@@ -1,17 +1,12 @@
 <script setup lang="ts">
 import type { Player } from "./types/player"
-import type { Mode } from "./types/common"
+import type { Mode, SearchItem } from "./types/common"
 import { debounce } from "radash"
+import { useStorage } from "@vueuse/core"
 
 useHead({
   title: "GOKZ TOP",
 })
-
-interface SearchResult {
-  name: string
-  steamid: string
-  avatar_hash: string
-}
 
 const apiBase = useRuntimeConfig().public.apiBase
 
@@ -21,14 +16,18 @@ const limit = ref(30)
 
 const loading = ref(false)
 
+const showHistory = ref(false)
+
 const players = ref<Player[]>([])
 const me = ref<Player | null>(null)
 
 const dialog = ref()
 
 const searchQuery = ref("")
-const searchResults = ref<SearchResult[]>([])
+const searchResults = ref<SearchItem[]>([])
 const search = debounce({ delay: 300 }, searchPlayer)
+
+const searchHistory = useStorage<SearchItem[]>("searchHistory", () => [])
 
 getRanking()
 
@@ -57,7 +56,7 @@ async function getRanking() {
   }
 }
 
-async function goToPlayer(steamId: string) {
+async function onClickPlayer(steamId: string) {
   loading.value = true
   searchQuery.value = ""
   searchResults.value = []
@@ -67,7 +66,17 @@ async function goToPlayer(steamId: string) {
         `${apiBase}/leaderboard/${steamId}?mode=${mode.value}`
       )
 
-      me.value = await response.json()
+      me.value = (await response.json()) as Player
+
+      if (searchHistory.value.length > 10) {
+        searchHistory.value.pop()
+      }
+
+      searchHistory.value.push({
+        name: me.value.name,
+        steamid: me.value.steamid,
+        avatar_hash: me.value.avatar_hash,
+      })
 
       if (me.value) {
         offset.value =
@@ -155,27 +164,22 @@ function changeMode(newMode: Mode) {
             type="text"
             v-model="searchQuery"
             placeholder="Name, Steam ID"
+            @focus="showHistory = true"
+            @input="showHistory = false"
             class="border border-gray-400 p-1"
           />
 
-          <div
+          <Suggestions
             v-if="searchResults.length > 0"
-            class="absolute top-9 left-0 p-1 z-30 bg-gray-200 border border-gray-400"
-          >
-            <div
-              v-for="result in searchResults"
-              :key="result.steamid"
-              class="mt-1 flex items-center hover:bg-gray-300 cursor-pointer"
-              @click="goToPlayer(result.steamid)"
-            >
-              <VImage
-                class="w-10 h-10"
-                :src="`https://avatars.cloudflare.steamstatic.com/${result.avatar_hash}_medium.jpg`"
-                placeholder="/placeholder.jpeg"
-              />
-              <p class="px-2 truncate text-ellipsis">{{ result.name }}</p>
-            </div>
-          </div>
+            :items="searchResults"
+            @click-player="onClickPlayer"
+          />
+
+          <Suggestions
+            v-if="showHistory && searchHistory.length > 0"
+            :items="searchHistory"
+            @click-player="onClickPlayer"
+          />
         </div>
       </div>
 
