@@ -142,7 +142,7 @@ function getModeAbbr(mode: Mode) {
 
         <td>
           <img
-            :src="`/ranks/${player.rank_name.toLowerCase()}.png`"
+            :src="`/ranks/${player.rank_name}.png`"
             class="w-20 h-auto inline"
           />
         </td>
